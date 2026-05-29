@@ -2,6 +2,8 @@
 
 **Version:** 0.1.0
 
+[한국어 README](README.ko.md)
+
 <p align="center">
   <img src="Assets/brand/sorrybuddy-sketch.png" alt="SorryBuddy hand-drawn sketch" width="420">
 </p>
@@ -12,7 +14,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 ## Features
 
-- Menu bar control via a visible `SB` item.
+- Menu bar control via a visible sprout icon.
 - Closed-lid sleep prevention through `pmset -a disablesleep`.
 - Administrator approval before changing the power setting.
 - Control window that can be closed while the app keeps running in the menu bar.
@@ -59,11 +61,15 @@ open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 4. Enter the macOS administrator password.
 5. Keep the MacBook on a hard, ventilated desk surface.
 6. Close the lid and verify the Mac remains reachable.
-7. To reopen the control window, click `SB` in the menu bar and choose `제어 창 열기`.
-8. To disable the mode, click `SB` and choose `닫힌 상태 작업 모드 끄기`.
-9. To fully quit the app, click `SB` and choose `종료하기`.
+7. To reopen the control window, click the sprout icon in the menu bar and choose `제어 창 열기`.
+8. To disable the mode, click the sprout icon and choose `닫힌 상태 작업 모드 끄기`.
+9. To fully quit the app, click the sprout icon and choose `종료하기`.
 
-When the mode is enabled, the menu bar item changes from `SB` to `SB ON`.
+## Menu Bar Icon Troubleshooting
+
+SorryBuddy runs as a menu bar agent app. It does not need to stay in the Dock.
+
+If the menu opens from an empty area or the sprout icon is not visible, a menu bar organizer such as Ice, Hidden Bar, or Bartender may have hidden the new item. Open that organizer, find `SorryBuddy`, and move it to the visible menu bar area.
 
 ## Verify State
 

@@ -4,8 +4,8 @@ SorryBuddy v0.1.0 is a personal test build for keeping a MacBook awake while the
 
 ## What It Does
 
-- Opens a small control window and also adds a menu bar item named SorryBuddy.
-- Keeps running as a visible `SB` item in the menu bar if the control window is closed.
+- Opens a small control window and also adds a SorryBuddy sprout icon to the menu bar.
+- Keeps running as a visible sprout icon in the menu bar if the control window is closed.
 - Uses a minimal eyes-and-sprout icon derived from the first hand-drawn sketch.
 - Turns closed-lid sleep prevention on with administrator approval.
 - Turns it off from the same menu.
@@ -52,15 +52,17 @@ The packaged app is created at:
 5. Enter the macOS administrator password when prompted.
 6. Keep the MacBook on a desk and verify it remains reachable while closed.
 
-If no window appears, click the SorryBuddy icon in the Dock or run:
+If no window appears, click the sprout menu bar icon and choose `제어 창 열기`, or run:
 
 ```bash
 open -n /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 ```
 
-If the window was closed with the red X button, click the `SB` menu bar item and choose `제어 창 열기`.
+If the window was closed with the red X button, click the sprout menu bar icon and choose `제어 창 열기`.
 
-To fully quit SorryBuddy, click `SB` in the menu bar and choose `종료하기`.
+To fully quit SorryBuddy, click the sprout icon in the menu bar and choose `종료하기`.
+
+If the menu opens from an empty menu bar area or the sprout icon is missing, check any menu bar organizer app such as Ice, Hidden Bar, or Bartender and move SorryBuddy into the visible area.
 
 ## Verify Current State
 

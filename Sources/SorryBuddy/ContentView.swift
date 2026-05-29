@@ -28,7 +28,7 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("책상 위 테스트 전용입니다.")
                     .font(.headline)
-                Text("창을 닫아도 앱은 상단 메뉴바의 SB에 남아 있습니다. 완전히 끄려면 SB를 클릭하고 종료하기를 누르세요. 가방, 침대, 이불 위, 더운 장소, 직사광선에서는 사용하지 마세요.")
+                Text("창을 닫아도 앱은 상단 메뉴바의 새싹 아이콘에 남아 있습니다. 완전히 끄려면 새싹 아이콘을 클릭하고 종료하기를 누르세요. 가방, 침대, 이불 위, 더운 장소, 직사광선에서는 사용하지 마세요.")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
