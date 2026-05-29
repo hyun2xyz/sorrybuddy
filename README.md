@@ -24,7 +24,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 ## Visual Identity
 
-The first SorryBuddy sketch is kept as the project's README artwork. The app icon uses a generated sprout-buddy face derived from that sketch, saved in `Assets/AppIcon`.
+The first SorryBuddy sketch is kept as the project's README artwork. The app icon uses a minimal eyes-and-sprout mark derived from that sketch, with the colored face and enclosing circle removed.
 
 ## Requirements
 

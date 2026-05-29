@@ -6,9 +6,8 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(spacing: 12) {
-                Image(systemName: state.isClosedLidModeActive ? "bolt.circle.fill" : "bolt.circle")
-                    .font(.system(size: 34))
-                    .foregroundStyle(state.isClosedLidModeActive ? .green : .secondary)
+                SproutFaceMark(isActive: state.isClosedLidModeActive)
+                    .frame(width: 42, height: 42)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("SorryBuddy")

@@ -4,36 +4,17 @@ import SwiftUI
 @main
 struct SorryBuddyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @StateObject private var state = AppState()
-    private let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
-    private let lidTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
+    @StateObject private var state: AppState
+
+    init() {
+        _state = StateObject(wrappedValue: SharedAppState.state)
+    }
 
     var body: some Scene {
-        Window("SorryBuddy", id: "control") {
-            ContentView(state: state)
-                .onReceive(timer) { _ in
-                    state.safetyTick()
-                }
-                .onReceive(lidTimer) { _ in
-                    state.lidTick()
-                }
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
-                    state.restoreBeforeQuit()
-                }
-        }
-        .windowStyle(.titleBar)
-        .windowResizability(.contentSize)
-
         MenuBarExtra {
             SorryBuddyMenu(state: state)
                 .onAppear {
                     state.refresh()
-                }
-                .onReceive(timer) { _ in
-                    state.safetyTick()
-                }
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
-                    state.restoreBeforeQuit()
                 }
         } label: {
             Text(state.isClosedLidModeActive ? "SB ON" : "SB")
@@ -44,7 +25,6 @@ struct SorryBuddyApp: App {
 }
 
 private struct SorryBuddyMenu: View {
-    @Environment(\.openWindow) private var openWindow
     @ObservedObject var state: AppState
 
     var body: some View {
@@ -79,8 +59,7 @@ private struct SorryBuddyMenu: View {
             Divider()
 
             Button("제어 창 열기") {
-                openWindow(id: "control")
-                NSApplication.shared.activate(ignoringOtherApps: true)
+                (NSApplication.shared.delegate as? AppDelegate)?.showControlWindow()
             }
 
             Button("종료하기") {
