@@ -6,6 +6,7 @@ SorryBuddy v0.1.0 is a personal test build for keeping a MacBook awake while the
 
 - Opens a small control window and also adds a menu bar item named SorryBuddy.
 - Keeps running as a visible `SB` item in the menu bar if the control window is closed.
+- Uses the sprout-buddy face icon derived from the first hand-drawn sketch.
 - Turns closed-lid sleep prevention on with administrator approval.
 - Turns it off from the same menu.
 - Watches lid state every 2 seconds and sets the built-in display brightness to 0 when the lid is closed.

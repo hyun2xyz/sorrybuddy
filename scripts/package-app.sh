@@ -12,8 +12,10 @@ if [[ "$APP" == "$BUILD_DIR/SorryBuddy.app" ]]; then
 fi
 
 mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/Resources"
 cp "$BUILD_DIR/SorryBuddy" "$APP/Contents/MacOS/SorryBuddy"
 cp "$ROOT/Packaging/Info.plist" "$APP/Contents/Info.plist"
+cp "$ROOT/Assets/AppIcon/SorryBuddy.icns" "$APP/Contents/Resources/SorryBuddy.icns"
 chmod +x "$APP/Contents/MacOS/SorryBuddy"
 
 codesign --force --deep --sign - "$APP"

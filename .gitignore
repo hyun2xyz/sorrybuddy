@@ -1,5 +1,6 @@
 .DS_Store
 /.build
+Assets/AppIcon/SorryBuddy.iconset/
 /Packages
 xcuserdata/
 DerivedData/
