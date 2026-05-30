@@ -5,7 +5,7 @@
 [English README](README.md)
 
 <p align="center">
-  <img src="Assets/brand/sorrybuddy-sketch.png" alt="SorryBuddy hand-drawn sketch" width="420">
+  <img src="Assets/brand/sorrybuddy-sketch.png" alt="SorryBuddy hand-drawn laptop screen friend sketch" width="420">
 </p>
 
 SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하기 위한 작은 macOS 메뉴바 앱입니다. 닫힌 상태 작업 모드를 켜면 맥이 잠자기에 들어가지 않도록 설정하고, 뚜껑이 닫혔을 때 내장 디스플레이 밝기를 0으로 낮춘 뒤 뚜껑을 열거나 모드를 끄면 이전 밝기로 복구합니다.
@@ -36,7 +36,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 ## 디자인
 
-README 상단에는 첫 손그림 스케치를 배경 제거 버전으로 넣었습니다. 앱 아이콘과 메뉴바 아이콘은 이 스케치에서 따온 눈과 새싹 형태를 사용합니다.
+README 상단에는 맥북 화면 안에 남아 웃고 있는 작은 친구 스케치를 넣었습니다. 앱 아이콘과 메뉴바 아이콘은 이 친구의 눈과 새싹 형태를 사용합니다.
 
 ## 요구 사항
 

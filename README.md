@@ -5,7 +5,7 @@
 [한국어 README](README.ko.md)
 
 <p align="center">
-  <img src="Assets/brand/sorrybuddy-sketch.png" alt="SorryBuddy hand-drawn sketch" width="420">
+  <img src="Assets/brand/sorrybuddy-sketch.png" alt="SorryBuddy hand-drawn laptop screen friend sketch" width="420">
 </p>
 
 SorryBuddy is a small macOS menu bar app for testing closed-lid work mode on a MacBook. It can keep the Mac awake after the lid closes, dim the built-in display to 0 when the lid is closed, and restore the previous brightness when the lid opens or the mode turns off.
@@ -36,7 +36,7 @@ This build is ad-hoc signed and not notarized. On first launch, macOS may ask yo
 
 ## Visual Identity
 
-The first SorryBuddy sketch is kept as the project's README artwork. The app icon uses a minimal eyes-and-sprout mark derived from that sketch, with the colored face and enclosing circle removed.
+The README artwork shows the little SorryBuddy friend smiling from inside a laptop screen. The app icon uses a minimal eyes-and-sprout mark derived from that friend, with the colored face and enclosing circle removed.
 
 ## Requirements
 
