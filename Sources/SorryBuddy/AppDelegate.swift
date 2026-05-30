@@ -57,9 +57,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let controller = NSHostingController(rootView: ContentView(state: SharedAppState.state))
             let window = NSWindow(contentViewController: controller)
             window.title = "SorryBuddy"
-            window.styleMask = [.titled, .closable, .miniaturizable]
-            window.titleVisibility = .visible
-            window.titlebarAppearsTransparent = false
+            window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
+            window.titleVisibility = .hidden
+            window.titlebarAppearsTransparent = true
             window.isOpaque = false
             window.backgroundColor = .clear
             window.isMovableByWindowBackground = true

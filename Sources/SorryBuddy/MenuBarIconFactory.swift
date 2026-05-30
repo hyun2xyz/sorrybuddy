@@ -2,10 +2,10 @@ import AppKit
 
 enum MenuBarIconFactory {
     static func image(isActive: Bool) -> NSImage {
-        if let url = Bundle.main.url(forResource: "SorryBuddyMenuBar", withExtension: "png"),
+        if let url = Bundle.main.url(forResource: "SorryBuddyMenuBarTemplate", withExtension: "png"),
            let image = NSImage(contentsOf: url) {
             image.size = NSSize(width: 22, height: 22)
-            image.isTemplate = false
+            image.isTemplate = true
             image.accessibilityDescription = isActive ? "SorryBuddy on" : "SorryBuddy"
             return image
         }

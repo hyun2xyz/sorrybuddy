@@ -7,14 +7,19 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             GlassBackdrop()
+            Rectangle()
+                .fill(.ultraThinMaterial)
+                .opacity(0.58)
+                .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 14) {
-                header
-                modeSwitch
                 statusCard
+                modeSwitch
                 betaNotice
             }
-            .padding(22)
+            .padding(.horizontal, AppTheme.windowPadding)
+            .padding(.top, AppTheme.titlebarInset)
+            .padding(.bottom, AppTheme.windowPadding)
         }
         .frame(width: 520)
         .foregroundStyle(AppTheme.primaryText)
@@ -24,38 +29,18 @@ struct ContentView: View {
         }
     }
 
-    private var header: some View {
-        HStack(alignment: .center, spacing: 12) {
-            HeaderLogoMark(isActive: state.isClosedLidModeActive)
-                .frame(width: 52, height: 52)
-
-            VStack(alignment: .leading, spacing: 3) {
-                Text("SorryBuddy")
-                    .font(AppTheme.titleFont)
-
-                Text("맥북 닫힘 작업 모드 베타")
-                    .font(AppTheme.captionFont)
-                    .foregroundStyle(AppTheme.secondaryText)
-            }
-
-            Spacer()
-
-            Text(state.isClosedLidModeActive ? "켜짐" : "대기")
-                .font(AppTheme.badgeFont)
-                .foregroundStyle(state.isClosedLidModeActive ? AppTheme.activeText : AppTheme.secondaryText)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
-                .background(state.isClosedLidModeActive ? AppTheme.activeBackground : AppTheme.controlBackground)
-                .clipShape(Capsule())
-        }
-        .padding(14)
-        .glassPanel(cornerRadius: 22)
-    }
-
     private var modeSwitch: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("작업 모드")
-                .font(AppTheme.sectionFont)
+            HStack(alignment: .firstTextBaseline) {
+                Text("작업 모드")
+                    .font(AppTheme.sectionFont)
+
+                Spacer()
+
+                Text(state.isClosedLidModeActive ? "켜짐" : "대기")
+                    .font(AppTheme.badgeFont)
+                    .foregroundStyle(state.isClosedLidModeActive ? AppTheme.activeText : AppTheme.secondaryText)
+            }
 
             Button {
                 toggleClosedLidMode()
@@ -66,7 +51,7 @@ struct ContentView: View {
             .disabled(state.isBusy)
             .animation(.spring(response: 0.32, dampingFraction: 0.82), value: state.isClosedLidModeActive)
         }
-        .padding(14)
+        .padding(AppTheme.cardPadding)
         .glassPanel(cornerRadius: 22)
     }
 
@@ -100,8 +85,7 @@ struct ContentView: View {
                 bodyText("직사광선, 길게 사용은 하지마세요.")
                 bodyText("이 앱은 배터리가 10%가 되면 자동으로 종료됩니다.")
                 bodyText("CLI 환경을 사용하신다면 에이전트 규칙을")
-                bodyText("배터리가 15프로가 되면 자동으로 커밋하고")
-                bodyText("정리되게 설정하세요.")
+                bodyText("배터리가 15프로가 되면 자동으로 커밋하고 정리되게 설정하세요.")
                 attributionLine
             }
             .foregroundStyle(AppTheme.secondaryText)
@@ -148,43 +132,8 @@ struct ContentView: View {
     }
 }
 
-private struct HeaderLogoMark: View {
-    let isActive: Bool
-
-    var body: some View {
-        if let image = HeaderLogoImage.image {
-            Image(nsImage: image)
-                .resizable()
-                .interpolation(.high)
-                .scaledToFit()
-                .accessibilityHidden(true)
-        } else {
-            SproutFaceMark(isActive: isActive)
-                .padding(9)
-                .background(AppTheme.iconBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        }
-    }
-}
-
-@MainActor
-private enum HeaderLogoImage {
-    static let image: NSImage? = {
-        guard let url = Bundle.main.url(forResource: "SorryBuddyMenuBar", withExtension: "png"),
-              let image = NSImage(contentsOf: url) else {
-            return nil
-        }
-
-        image.size = NSSize(width: 52, height: 52)
-        return image
-    }()
-}
-
 private enum AppTheme {
     static let green = Color(nsColor: .systemGreen)
-    static let controlBackground = Color(nsColor: .quaternaryLabelColor).opacity(0.22)
-    static let iconBackground = Color(nsColor: .quaternaryLabelColor).opacity(0.20)
-    static let activeBackground = green.opacity(0.20)
     static let primaryText = Color(nsColor: .labelColor)
     static let secondaryText = Color(nsColor: .secondaryLabelColor)
     static let tertiaryText = Color(nsColor: .tertiaryLabelColor)
@@ -194,11 +143,13 @@ private enum AppTheme {
     static let glassHighlight = Color.white.opacity(0.54)
     static let glassShadow = Color.black.opacity(0.16)
 
-    static let titleFont = Font.system(size: 24, weight: .semibold)
     static let sectionFont = Font.system(size: 13, weight: .semibold)
     static let bodyFont = Font.system(size: 13, weight: .regular)
     static let captionFont = Font.system(size: 12, weight: .regular)
     static let badgeFont = Font.system(size: 11, weight: .semibold)
+    static let windowPadding: CGFloat = 22
+    static let titlebarInset: CGFloat = 48
+    static let cardPadding: CGFloat = 16
     static let lineSpacing: CGFloat = 4
     static let noticeLineGap: CGFloat = 5
     static let noticeParagraphGap: CGFloat = 3
@@ -268,7 +219,7 @@ private struct LiquidModeSwitch: View {
         }
         .foregroundStyle(isSelected ? AppTheme.primaryText : AppTheme.secondaryText)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 14)
+        .padding(.horizontal, AppTheme.cardPadding)
     }
 }
 
@@ -317,7 +268,7 @@ private struct InfoCard<Content: View>: View {
             }
             content
         }
-        .padding(16)
+        .padding(AppTheme.cardPadding)
         .frame(maxWidth: .infinity, alignment: .leading)
         .glassPanel(cornerRadius: 22)
     }
@@ -345,7 +296,7 @@ private struct GlassBackdrop: NSViewRepresentable {
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
         view.material = .hudWindow
-        view.blendingMode = .behindWindow
+        view.blendingMode = .withinWindow
         view.state = .active
         return view
     }
