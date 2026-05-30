@@ -12,7 +12,7 @@ struct ContentView: View {
                 .opacity(0.58)
                 .ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: AppTheme.cardSpacing) {
                 statusCard
                 modeSwitch
                 betaNotice
@@ -21,12 +21,25 @@ struct ContentView: View {
             .padding(.top, AppTheme.titlebarInset)
             .padding(.bottom, AppTheme.windowPadding)
         }
+        .overlay(alignment: .top) {
+            titleBar
+                .ignoresSafeArea(edges: .top)
+        }
         .frame(width: 520)
         .foregroundStyle(AppTheme.primaryText)
         .font(AppTheme.bodyFont)
         .onAppear {
             state.refresh()
         }
+    }
+
+    private var titleBar: some View {
+        Text("Hello Buddy")
+            .font(AppTheme.titleFont)
+            .foregroundStyle(AppTheme.secondaryText)
+            .frame(maxWidth: .infinity)
+            .frame(height: AppTheme.titlebarHeight, alignment: .center)
+            .allowsHitTesting(false)
     }
 
     private var modeSwitch: some View {
@@ -147,9 +160,12 @@ private enum AppTheme {
     static let bodyFont = Font.system(size: 13, weight: .regular)
     static let captionFont = Font.system(size: 12, weight: .regular)
     static let badgeFont = Font.system(size: 11, weight: .semibold)
-    static let windowPadding: CGFloat = 22
-    static let titlebarInset: CGFloat = 22
-    static let cardPadding: CGFloat = 16
+    static let titleFont = Font.custom("Courier", fixedSize: 12)
+    static let windowPadding: CGFloat = 18
+    static let titlebarHeight: CGFloat = 30
+    static let titlebarInset: CGFloat = 8
+    static let cardSpacing: CGFloat = 12
+    static let cardPadding: CGFloat = 14
     static let lineSpacing: CGFloat = 4
     static let noticeLineGap: CGFloat = 5
     static let noticeParagraphGap: CGFloat = 3

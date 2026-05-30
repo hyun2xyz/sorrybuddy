@@ -47,17 +47,17 @@ export INSTALLER_SIGN_IDENTITY="Developer ID Installer: Your Name (TEAMID)"
 Apple notarytool 프로필이 준비되어 있으면 DMG와 PKG를 각각 제출한다.
 
 ```bash
-xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.5.dmg --keychain-profile sorrybuddy-notary --wait
-xcrun stapler staple ~/Desktop/SorryBuddy-0.1.5.dmg
-xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.5.pkg --keychain-profile sorrybuddy-notary --wait
-xcrun stapler staple ~/Desktop/SorryBuddy-0.1.5.pkg
+xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.6.dmg --keychain-profile sorrybuddy-notary --wait
+xcrun stapler staple ~/Desktop/SorryBuddy-0.1.6.dmg
+xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.6.pkg --keychain-profile sorrybuddy-notary --wait
+xcrun stapler staple ~/Desktop/SorryBuddy-0.1.6.pkg
 ```
 
 검증:
 
 ```bash
-spctl -a -vv --type open ~/Desktop/SorryBuddy-0.1.5.dmg
-spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.5.pkg
+spctl -a -vv --type open ~/Desktop/SorryBuddy-0.1.6.dmg
+spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.6.pkg
 ```
 
 ## 업데이트 방식
