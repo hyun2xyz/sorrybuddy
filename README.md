@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.1
+**Version:** 0.1.2
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.1.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.1.dmg)
+[SorryBuddy-0.1.2.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.2.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
@@ -31,7 +31,7 @@ This build is ad-hoc signed and not notarized. On first launch, macOS may ask yo
 - Built-in display brightness goes to 0 when the lid is closed.
 - Previous brightness is restored when the lid opens or the mode is disabled.
 - Battery safety checks every 60 seconds.
-- Automatic mode disable at 20% battery while running on battery power.
+- Automatic mode termination at 10% battery while running on battery power.
 - Manual update checks through GitHub Releases.
 - Emergency recovery through a standard `pmset` command.
 

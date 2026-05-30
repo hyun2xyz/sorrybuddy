@@ -1,6 +1,6 @@
-# SorryBuddy v0.1.1 Manual
+# SorryBuddy v0.1.2 Manual
 
-SorryBuddy v0.1.1 is a personal test build for keeping a MacBook awake while the lid is closed.
+SorryBuddy v0.1.2 is a personal test build for keeping a MacBook awake while the lid is closed.
 
 ## What It Does
 
@@ -12,7 +12,7 @@ SorryBuddy v0.1.1 is a personal test build for keeping a MacBook awake while the
 - Watches lid state every 2 seconds and sets the built-in display brightness to 0 when the lid is closed.
 - Restores the previous brightness when the lid opens or the mode is turned off.
 - Checks battery state every 60 seconds.
-- Turns the mode off automatically at 20% battery while running on battery power.
+- Turns the mode off automatically at 10% battery while running on battery power.
 - Restores the mode on app quit if this app enabled it during the same run.
 - Checks GitHub Releases for newer DMG builds from the menu bar.
 
@@ -100,4 +100,4 @@ Then restart the Mac if the power state still looks unusual.
 
 ## AI CLI Work Notes
 
-The next product layer should add a CLI companion that watches battery state and asks active LLM coding sessions to checkpoint before 20%. The v0 app does not yet checkpoint Codex, Claude, Gemini, or other CLI agents.
+The next product layer should add a CLI companion that watches battery state and asks active LLM coding sessions to checkpoint before 10%. The v0 app does not yet checkpoint Codex, Claude, Gemini, or other CLI agents.

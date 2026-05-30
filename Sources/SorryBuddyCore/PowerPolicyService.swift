@@ -53,11 +53,11 @@ public enum BatterySafetyPolicy {
             return .ok
         }
 
-        if percentage <= 20 {
+        if percentage <= 10 {
             return .disableNow
         }
 
-        if percentage <= 22 {
+        if percentage <= 12 {
             return .disableSoon
         }
 

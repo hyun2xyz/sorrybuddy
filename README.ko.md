@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**버전:** 0.1.1
+**버전:** 0.1.2
 
 [English README](README.md)
 
@@ -16,7 +16,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 최신 DMG 파일을 받으세요.
 
-[SorryBuddy-0.1.1.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.1.dmg)
+[SorryBuddy-0.1.2.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.2.dmg)
 
 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 
@@ -31,7 +31,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 - 뚜껑이 닫히면 내장 디스플레이 밝기를 0으로 변경.
 - 뚜껑을 열거나 모드를 끄면 이전 밝기 복구.
 - 60초마다 배터리 안전 상태 확인.
-- 배터리 사용 중 20%에 도달하면 모드 자동 해제.
+- 배터리 사용 중 10%에 도달하면 모드 자동 종료.
 - GitHub Releases 기반의 수동 업데이트 확인.
 - 문제가 생겼을 때 표준 `pmset` 명령으로 긴급 복구 가능.
 

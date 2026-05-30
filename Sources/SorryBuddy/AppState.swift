@@ -11,7 +11,7 @@ final class AppState: ObservableObject {
     private let service: PowerPolicyService
     private let lidBrightnessCoordinator: LidBrightnessCoordinator
     private var enabledByThisRun = false
-    private var warnedAtTwentyTwoPercent = false
+    private var warnedAtTwelvePercent = false
 
     init(
         service: PowerPolicyService = PowerPolicyService(),
@@ -45,7 +45,7 @@ final class AppState: ObservableObject {
             try service.disableClosedLidMode()
             try lidBrightnessCoordinator.tick(isClosedLidModeActive: false)
             enabledByThisRun = false
-            warnedAtTwentyTwoPercent = false
+            warnedAtTwelvePercent = false
         }
     }
 
@@ -68,12 +68,12 @@ final class AppState: ObservableObject {
         case .ok:
             break
         case .disableSoon:
-            if !warnedAtTwentyTwoPercent {
-                warnedAtTwentyTwoPercent = true
-                lastMessage = "배터리 22% 이하입니다. 작업 정리를 준비하세요."
+            if !warnedAtTwelvePercent {
+                warnedAtTwelvePercent = true
+                lastMessage = "배터리 12% 이하입니다. 작업 정리를 준비하세요."
             }
         case .disableNow:
-            perform("배터리 20% 이하라 닫힌 상태 작업 모드를 자동으로 껐습니다.") {
+            perform("배터리 10% 이하라 닫힌 상태 작업 모드를 자동으로 종료했습니다.") {
                 try service.disableClosedLidMode()
                 enabledByThisRun = false
             }

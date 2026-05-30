@@ -64,14 +64,14 @@ struct PowerPolicyServiceTests {
         ])
     }
 
-    @Test func batterySafetyRequestsDisableNowAtTwentyPercentOnBattery() {
-        let status = BatteryStatus(source: .battery, percentage: 20, isCharging: false)
+    @Test func batterySafetyRequestsDisableNowAtTenPercentOnBattery() {
+        let status = BatteryStatus(source: .battery, percentage: 10, isCharging: false)
 
         #expect(BatterySafetyPolicy.recommendation(for: status) == .disableNow)
     }
 
-    @Test func batterySafetyWarnsAtTwentyTwoPercentOnBattery() {
-        let status = BatteryStatus(source: .battery, percentage: 22, isCharging: false)
+    @Test func batterySafetyWarnsAtTwelvePercentOnBattery() {
+        let status = BatteryStatus(source: .battery, percentage: 12, isCharging: false)
 
         #expect(BatterySafetyPolicy.recommendation(for: status) == .disableSoon)
     }

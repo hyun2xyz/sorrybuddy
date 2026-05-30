@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 struct ContentView: View {
@@ -23,11 +24,8 @@ struct ContentView: View {
 
     private var header: some View {
         HStack(alignment: .center, spacing: 12) {
-            SproutFaceMark(isActive: state.isClosedLidModeActive)
-                .frame(width: 34, height: 34)
-                .padding(9)
-                .background(AppTheme.iconBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            HeaderLogoMark(isActive: state.isClosedLidModeActive)
+                .frame(width: 52, height: 52)
 
             VStack(alignment: .leading, spacing: 3) {
                 Text("SorryBuddy")
@@ -96,9 +94,9 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 7) {
                 Text("베타 테스트 버전입니다. 사용 결과는 책임지지 않습니다. ദ്ദി( ᴖ ̫ᴖ )")
                     .foregroundStyle(AppTheme.primaryText)
-                Text("클램쉘도 몇 시간씩 쓰는 걸 생각하면, 통풍만 지키면 큰 문제는 없지 않을까 생각합니다.")
+                Text("클램쉘도 몇 시간씩 쓰는 걸 생각하면, 통풍만 지키면 큰 문제는 없지 않을까 생각합니다...")
                 Text("그래도 가방, 침대, 이불 위, 더운 장소, 직사광선에서는 사용하지 마세요.")
-                Text("배터리 20% 이하에서는 닫힌 상태 작업 모드를 자동으로 끕니다.")
+                Text("배터리 10%가 되면 닫힌 상태 작업 모드가 자동으로 종료됩니다.")
             }
             .foregroundStyle(AppTheme.secondaryText)
             .fixedSize(horizontal: false, vertical: true)
@@ -127,6 +125,38 @@ struct ContentView: View {
     private func confirmEnable() -> Bool {
         WarningDialog.confirmEnable()
     }
+}
+
+private struct HeaderLogoMark: View {
+    let isActive: Bool
+
+    var body: some View {
+        if let image = HeaderLogoImage.image {
+            Image(nsImage: image)
+                .resizable()
+                .interpolation(.high)
+                .scaledToFit()
+                .accessibilityHidden(true)
+        } else {
+            SproutFaceMark(isActive: isActive)
+                .padding(9)
+                .background(AppTheme.iconBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+    }
+}
+
+@MainActor
+private enum HeaderLogoImage {
+    static let image: NSImage? = {
+        guard let url = Bundle.main.url(forResource: "SorryBuddyMenuBar", withExtension: "png"),
+              let image = NSImage(contentsOf: url) else {
+            return nil
+        }
+
+        image.size = NSSize(width: 52, height: 52)
+        return image
+    }()
 }
 
 private enum AppTheme {
