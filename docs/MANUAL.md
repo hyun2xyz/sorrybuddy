@@ -1,6 +1,6 @@
-# SorryBuddy v0.1.0 Manual
+# SorryBuddy v0.1.1 Manual
 
-SorryBuddy v0.1.0 is a personal test build for keeping a MacBook awake while the lid is closed.
+SorryBuddy v0.1.1 is a personal test build for keeping a MacBook awake while the lid is closed.
 
 ## What It Does
 
@@ -14,6 +14,7 @@ SorryBuddy v0.1.0 is a personal test build for keeping a MacBook awake while the
 - Checks battery state every 60 seconds.
 - Turns the mode off automatically at 20% battery while running on battery power.
 - Restores the mode on app quit if this app enabled it during the same run.
+- Checks GitHub Releases for newer DMG builds from the menu bar.
 
 ## Safety Rules
 
@@ -63,6 +64,8 @@ If the window was closed with the red X button, click the sprout menu bar icon a
 To fully quit SorryBuddy, click the sprout icon in the menu bar and choose `종료하기`.
 
 If the menu opens from an empty menu bar area or the sprout icon is missing, check any menu bar organizer app such as Ice, Hidden Bar, or Bartender and move SorryBuddy into the visible area.
+
+To check for a newer build, click the sprout icon in the menu bar and choose `업데이트 확인...`.
 
 ## Verify Current State
 

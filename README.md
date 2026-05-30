@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.0
+**Version:** 0.1.1
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.0.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.0.dmg)
+[SorryBuddy-0.1.1.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.1.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
@@ -32,6 +32,7 @@ This build is ad-hoc signed and not notarized. On first launch, macOS may ask yo
 - Previous brightness is restored when the lid opens or the mode is disabled.
 - Battery safety checks every 60 seconds.
 - Automatic mode disable at 20% battery while running on battery power.
+- Manual update checks through GitHub Releases.
 - Emergency recovery through a standard `pmset` command.
 
 ## Visual Identity
@@ -74,6 +75,12 @@ open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 7. To reopen the control window, click the sprout icon in the menu bar and choose `제어 창 열기`.
 8. To disable the mode, click the sprout icon and choose `닫힌 상태 작업 모드 끄기`.
 9. To fully quit the app, click the sprout icon and choose `종료하기`.
+
+## Check for Updates
+
+Click the sprout icon in the menu bar and choose `업데이트 확인...`. If a newer version exists, SorryBuddy can open the GitHub Releases DMG download.
+
+The current updater is a manual DMG flow. After Developer ID signing and notarization are in place, it can grow into a standard macOS automatic updater such as Sparkle.
 
 ## Menu Bar Icon Troubleshooting
 

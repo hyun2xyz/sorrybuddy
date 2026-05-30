@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**버전:** 0.1.0
+**버전:** 0.1.1
 
 [English README](README.md)
 
@@ -16,7 +16,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 최신 DMG 파일을 받으세요.
 
-[SorryBuddy-0.1.0.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.0.dmg)
+[SorryBuddy-0.1.1.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.1.dmg)
 
 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 
@@ -32,6 +32,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 - 뚜껑을 열거나 모드를 끄면 이전 밝기 복구.
 - 60초마다 배터리 안전 상태 확인.
 - 배터리 사용 중 20%에 도달하면 모드 자동 해제.
+- GitHub Releases 기반의 수동 업데이트 확인.
 - 문제가 생겼을 때 표준 `pmset` 명령으로 긴급 복구 가능.
 
 ## 디자인
@@ -74,6 +75,12 @@ open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 7. 제어 창을 다시 열려면 메뉴바의 새싹 아이콘을 누르고 `제어 창 열기`를 선택합니다.
 8. 모드를 끄려면 새싹 아이콘을 누르고 `닫힌 상태 작업 모드 끄기`를 선택합니다.
 9. 앱을 완전히 종료하려면 새싹 아이콘을 누르고 `종료하기`를 선택합니다.
+
+## 업데이트 확인
+
+상단 메뉴바의 새싹 아이콘을 누르고 `업데이트 확인...`을 선택하세요. 새 버전이 있으면 GitHub Releases의 DMG 다운로드를 열 수 있습니다.
+
+현재는 DMG 기반 수동 업데이트 방식입니다. Apple Developer ID 서명과 공증을 정리한 뒤에는 Sparkle 같은 macOS 표준 자동 업데이트 프레임워크로 확장할 수 있습니다.
 
 ## 메뉴바 아이콘이 안 보일 때
 
