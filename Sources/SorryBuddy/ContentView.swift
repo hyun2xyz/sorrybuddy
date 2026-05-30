@@ -31,7 +31,7 @@ struct ContentView: View {
 
     private var modeSwitch: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .firstTextBaseline) {
+            HStack(alignment: .top) {
                 Text("작업 모드")
                     .font(AppTheme.sectionFont)
 
@@ -148,7 +148,7 @@ private enum AppTheme {
     static let captionFont = Font.system(size: 12, weight: .regular)
     static let badgeFont = Font.system(size: 11, weight: .semibold)
     static let windowPadding: CGFloat = 22
-    static let titlebarInset: CGFloat = 48
+    static let titlebarInset: CGFloat = 22
     static let cardPadding: CGFloat = 16
     static let lineSpacing: CGFloat = 4
     static let noticeLineGap: CGFloat = 5
@@ -244,7 +244,7 @@ private struct InfoCard<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if title != nil || refreshAction != nil {
-                HStack(alignment: .center, spacing: 6) {
+                HStack(alignment: .top, spacing: 6) {
                     if let title {
                         Text(title)
                             .font(AppTheme.sectionFont)

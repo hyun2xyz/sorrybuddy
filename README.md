@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.4
+**Version:** 0.1.5
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.4.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.4.dmg)
+[SorryBuddy-0.1.5.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.5.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
@@ -148,6 +148,18 @@ Build release DMG:
 
 ```bash
 ./scripts/package-dmg.sh
+```
+
+Build release PKG:
+
+```bash
+./scripts/package-pkg.sh
+```
+
+Build both DMG and PKG to the Desktop:
+
+```bash
+./scripts/package-desktop.sh
 ```
 
 The code is split into:

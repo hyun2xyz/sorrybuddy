@@ -1,6 +1,6 @@
-# SorryBuddy v0.1.4 Manual
+# SorryBuddy v0.1.5 Manual
 
-SorryBuddy v0.1.4 is a personal test build for keeping a MacBook awake while the lid is closed.
+SorryBuddy v0.1.5 is a personal test build for keeping a MacBook awake while the lid is closed.
 
 ## What It Does
 
