@@ -130,6 +130,10 @@ pmset -g | grep -E 'SleepDisabled|sleep'
 
 SorryBuddy는 사용자의 요청에 따라 macOS 전원 관리 설정을 변경합니다. 하드웨어 손상, 데이터 손실, 배터리 마모, 발열 피해, 작업 중단에 대한 책임은 사용자에게 있습니다.
 
+## 배포 보안
+
+암호화 DMG는 비밀번호를 모르면 마운트할 수 없게 만들 수 있습니다. 다만 사용자가 비밀번호로 DMG를 열고 앱을 실행한 뒤에는 앱 번들 내부를 볼 수 있으므로, "절대 뜯을 수 없는 앱"은 macOS 앱 구조상 만들 수 없습니다. 공개 배포에서 중요한 보안 기준은 Developer ID 서명, Apple 공증, stapling, 체크섬 검증입니다.
+
 ## 개발
 
 테스트:
@@ -148,6 +152,18 @@ swift test
 
 ```bash
 ./scripts/package-dmg.sh
+```
+
+암호화 DMG 빌드:
+
+```bash
+ENCRYPTED_DMG_PASSWORD_FILE="$HOME/Desktop/SorryBuddy.password.txt" ./scripts/package-encrypted-dmg.sh
+```
+
+배포 검증:
+
+```bash
+./scripts/verify-distribution.sh
 ```
 
 릴리즈 PKG 빌드:

@@ -130,6 +130,10 @@ Do not use SorryBuddy:
 
 SorryBuddy intentionally changes a power-management setting at the user's request. Hardware damage, data loss, battery wear, heat damage, or interrupted work remain the user's responsibility.
 
+## Distribution Security
+
+An encrypted DMG prevents mounting the disk image without the password. After a user unlocks the DMG and runs the app, the app bundle can still be inspected because that is how macOS app bundles work. Public distribution security should rely on Developer ID signing, Apple notarization, stapling, and checksum verification rather than obscuring the bundle.
+
 ## Development
 
 Run tests:
@@ -148,6 +152,18 @@ Build release DMG:
 
 ```bash
 ./scripts/package-dmg.sh
+```
+
+Build encrypted DMG:
+
+```bash
+ENCRYPTED_DMG_PASSWORD_FILE="$HOME/Desktop/SorryBuddy.password.txt" ./scripts/package-encrypted-dmg.sh
+```
+
+Verify distribution artifacts:
+
+```bash
+./scripts/verify-distribution.sh
 ```
 
 Build release PKG:

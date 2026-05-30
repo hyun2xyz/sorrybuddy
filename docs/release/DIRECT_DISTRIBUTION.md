@@ -22,10 +22,31 @@ macOS 앱 번들은 사용자가 열어볼 수 있는 구조라서 앱 내부를
 - hardened runtime 옵션으로 코드 서명
 - 앱 서명 검증
 - DMG 검증
+- AES-256 암호화 DMG 생성
+- 암호화 DMG 여부 검증
 - PKG payload 검증
 - SHA-256 체크섬 출력
 
 Developer ID 인증서를 준비하기 전까지는 사용자가 처음 실행할 때 macOS 경고를 볼 수 있다.
+
+## 암호화 DMG
+
+암호화 DMG는 비밀번호를 모르면 마운트할 수 없게 만드는 배포 컨테이너다. 단, 비밀번호를 가진 사용자가 DMG를 열면 앱 번들은 일반 macOS 앱처럼 보인다. 앱은 실행되어야 하므로 앱 내부를 절대 볼 수 없게 만드는 것은 불가능하다. 공개 배포 보안은 암호화보다 Developer ID 서명, 공증, stapling, 업데이트 서명에 기대야 한다.
+
+비밀번호 파일은 repo에 커밋하지 않는다.
+
+```bash
+openssl rand -base64 32 > ~/Desktop/SorryBuddy.password.txt
+chmod 600 ~/Desktop/SorryBuddy.password.txt
+ENCRYPTED_DMG_PASSWORD_FILE=~/Desktop/SorryBuddy.password.txt ./scripts/package-encrypted-dmg.sh
+```
+
+검증:
+
+```bash
+hdiutil isencrypted dist/SorryBuddy-0.1.6-encrypted.dmg
+ENCRYPTED_DMG=dist/SorryBuddy-0.1.6-encrypted.dmg ./scripts/verify-distribution.sh
+```
 
 ## Developer ID 배포 준비
 
@@ -40,6 +61,12 @@ export INSTALLER_SIGN_IDENTITY="Developer ID Installer: Your Name (TEAMID)"
 
 ```bash
 ./scripts/package-desktop.sh
+```
+
+배포 엄격 검증:
+
+```bash
+REQUIRE_DEVELOPER_ID=1 ./scripts/verify-distribution.sh
 ```
 
 ## 공증 흐름
