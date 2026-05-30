@@ -28,6 +28,14 @@
 6. `stapler`로 공증 티켓 stapling.
 7. `REQUIRE_DEVELOPER_ID=1 ./scripts/verify-distribution.sh` 통과.
 
+Developer ID와 notary profile이 준비된 뒤 전체 릴리즈를 만들 때:
+
+```bash
+./scripts/secure-release.sh
+```
+
+`secure-release.sh`는 같은 앱 번들을 기준으로 일반 DMG, AES-256 암호화 DMG, PKG, 체크섬 파일을 만든다. `NOTARY_KEYCHAIN_PROFILE`이 있으면 앱 번들을 먼저 공증하고 stapling한 뒤 그 앱을 DMG들에 넣는다.
+
 ## 로컬 감사 명령
 
 ```bash

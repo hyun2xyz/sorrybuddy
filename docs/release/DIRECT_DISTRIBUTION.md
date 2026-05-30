@@ -63,6 +63,15 @@ export INSTALLER_SIGN_IDENTITY="Developer ID Installer: Your Name (TEAMID)"
 ./scripts/package-desktop.sh
 ```
 
+서명/공증 준비가 끝난 뒤 한 번에 릴리즈 산출물을 만들려면:
+
+```bash
+CODESIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
+INSTALLER_SIGN_IDENTITY="Developer ID Installer: Your Name (TEAMID)" \
+NOTARY_KEYCHAIN_PROFILE=sorrybuddy-notary \
+./scripts/secure-release.sh
+```
+
 배포 엄격 검증:
 
 ```bash
@@ -96,6 +105,7 @@ spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.6.pkg
 공증 자동화:
 
 ```bash
+NOTARY_KEYCHAIN_PROFILE=sorrybuddy-notary ./scripts/notarize-app.sh
 NOTARY_KEYCHAIN_PROFILE=sorrybuddy-notary ./scripts/notarize-dmg.sh
 ```
 

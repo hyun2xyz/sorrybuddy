@@ -29,7 +29,15 @@ if [[ ${#password} -lt 12 ]]; then
     exit 2
 fi
 
-APP_PATH="$("$ROOT/scripts/package-app.sh" | tail -n 1)"
+APP_PATH="${APP_PATH_OVERRIDE:-}"
+if [[ -z "$APP_PATH" ]]; then
+    APP_PATH="$("$ROOT/scripts/package-app.sh" | tail -n 1)"
+fi
+
+if [[ ! -d "$APP_PATH" ]]; then
+    echo "App bundle not found: $APP_PATH" >&2
+    exit 1
+fi
 
 rm -rf "$STAGING"
 mkdir -p "$STAGING"

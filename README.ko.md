@@ -166,6 +166,12 @@ ENCRYPTED_DMG_PASSWORD_FILE="$HOME/Desktop/SorryBuddy.password.txt" ./scripts/pa
 ./scripts/verify-distribution.sh
 ```
 
+보안 릴리즈 전체 빌드:
+
+```bash
+./scripts/secure-release.sh
+```
+
 릴리즈 PKG 빌드:
 
 ```bash

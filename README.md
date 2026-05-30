@@ -166,6 +166,12 @@ Verify distribution artifacts:
 ./scripts/verify-distribution.sh
 ```
 
+Build the full secure release set:
+
+```bash
+./scripts/secure-release.sh
+```
+
 Build release PKG:
 
 ```bash

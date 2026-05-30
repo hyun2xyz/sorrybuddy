@@ -9,7 +9,15 @@ DIST="$ROOT/dist"
 PKG="$DIST/SorryBuddy-$VERSION.pkg"
 STAGING="$ROOT/.build/pkg-root"
 
-APP_PATH="$("$ROOT/scripts/package-app.sh" | tail -n 1)"
+APP_PATH="${APP_PATH_OVERRIDE:-}"
+if [[ -z "$APP_PATH" ]]; then
+    APP_PATH="$("$ROOT/scripts/package-app.sh" | tail -n 1)"
+fi
+
+if [[ ! -d "$APP_PATH" ]]; then
+    echo "App bundle not found: $APP_PATH" >&2
+    exit 1
+fi
 
 mkdir -p "$DIST"
 rm -f "$PKG"
