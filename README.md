@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.3
+**Version:** 0.1.4
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.3.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.3.dmg)
+[SorryBuddy-0.1.4.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.4.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 

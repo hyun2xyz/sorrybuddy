@@ -58,6 +58,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let window = NSWindow(contentViewController: controller)
             window.title = "SorryBuddy"
             window.styleMask = [.titled, .closable, .miniaturizable]
+            window.titleVisibility = .visible
+            window.titlebarAppearsTransparent = false
+            window.isOpaque = false
+            window.backgroundColor = .clear
+            window.isMovableByWindowBackground = true
             window.isReleasedWhenClosed = false
             window.center()
             controlWindow = window

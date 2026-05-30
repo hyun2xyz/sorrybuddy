@@ -5,16 +5,18 @@ struct ContentView: View {
     @ObservedObject var state: AppState
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            header
-            modeSwitch
-            statusCard
-            betaNotice
-            footerAttribution
+        ZStack {
+            GlassBackdrop()
+
+            VStack(alignment: .leading, spacing: 14) {
+                header
+                modeSwitch
+                statusCard
+                betaNotice
+            }
+            .padding(22)
         }
-        .padding(22)
         .frame(width: 520)
-        .background(AppTheme.background)
         .foregroundStyle(AppTheme.primaryText)
         .font(AppTheme.bodyFont)
         .onAppear {
@@ -41,11 +43,13 @@ struct ContentView: View {
             Text(state.isClosedLidModeActive ? "켜짐" : "대기")
                 .font(AppTheme.badgeFont)
                 .foregroundStyle(state.isClosedLidModeActive ? AppTheme.activeText : AppTheme.secondaryText)
-                .padding(.horizontal, 9)
-                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
                 .background(state.isClosedLidModeActive ? AppTheme.activeBackground : AppTheme.controlBackground)
                 .clipShape(Capsule())
         }
+        .padding(14)
+        .glassPanel(cornerRadius: 22)
     }
 
     private var modeSwitch: some View {
@@ -62,6 +66,8 @@ struct ContentView: View {
             .disabled(state.isBusy)
             .animation(.spring(response: 0.32, dampingFraction: 0.82), value: state.isClosedLidModeActive)
         }
+        .padding(14)
+        .glassPanel(cornerRadius: 22)
     }
 
     private var statusCard: some View {
@@ -75,33 +81,31 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 8) {
                 InfoRow(label: "모드", value: state.isClosedLidModeActive ? "닫힌 상태 작업 모드가 켜져 있습니다." : "닫힌 상태 작업 모드가 꺼져 있습니다.")
                 InfoRow(label: "전원", value: state.lastMessage)
-                InfoRow(label: "창", value: "닫아도 앱은 메뉴바 새싹 아이콘에 남아 있습니다.")
-                InfoRow(label: "종료", value: "메뉴바 새싹 아이콘에서 종료하기를 누르세요.")
             }
         }
     }
 
     private var betaNotice: some View {
         InfoCard {
-            VStack(alignment: .leading, spacing: 7) {
-                Text("베타 테스트 버전입니다. 사용 결과는 책임지지 않습니다. ദ്ദി( ᴖ ̫ᴖ )")
-                    .foregroundStyle(AppTheme.primaryText)
-                Text("클램쉘도 몇 시간씩 쓰는 걸 생각하면, 통풍만 지키면 큰 문제는 없지 않을까 생각합니다...")
-                Text("그래도 가방, 침대, 이불 위, 더운 장소, 직사광선에서는 사용하지 마세요.")
-                Text("배터리 10%가 되면 닫힌 상태 작업 모드가 자동으로 종료됩니다.")
+            VStack(alignment: .leading, spacing: AppTheme.noticeLineGap) {
+                bodyText("제가 사용하려고 만든 베타 테스트 버전입니다.", color: AppTheme.primaryText)
+                bodyText("사용 결과는 책임지지 않습니다. ദ്ദി( ᴖ ̫ᴖ )", color: AppTheme.primaryText)
+                noticeBreak
+                bodyText("겁주려는 건 아니고요...")
+                bodyText("맥북 클램쉘 기능이 애초에 있으니까,")
+                bodyText("통풍만 지키면 큰 문제는 없지 않을까 생각합니다.")
+                bodyText("(저도 맨날써요)")
+                noticeBreak
+                bodyText("그래도 가방, 침대, 이불 위, 더운 장소,")
+                bodyText("직사광선, 길게 사용은 하지마세요.")
+                bodyText("이 앱은 배터리가 10%가 되면 자동으로 종료됩니다.")
+                bodyText("CLI 환경을 사용하신다면 에이전트 규칙을")
+                bodyText("배터리가 15프로가 되면 자동으로 커밋하고")
+                bodyText("정리되게 설정하세요.")
+                attributionLine
             }
             .foregroundStyle(AppTheme.secondaryText)
             .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-
-    private var footerAttribution: some View {
-        HStack {
-            Link("@hyun2xyz", destination: URL(string: "https://www.instagram.com/hyun2xyz/")!)
-                .font(AppTheme.captionFont)
-                .foregroundStyle(AppTheme.linkText)
-                .underline()
-            Spacer()
         }
     }
 
@@ -118,6 +122,28 @@ struct ContentView: View {
             withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
                 state.enableClosedLidMode()
             }
+        }
+    }
+
+    private func bodyText(_ value: String, color: Color = AppTheme.secondaryText) -> some View {
+        Text(value)
+            .foregroundStyle(color)
+            .lineSpacing(AppTheme.lineSpacing)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var noticeBreak: some View {
+        Color.clear
+            .frame(height: AppTheme.noticeParagraphGap)
+    }
+
+    private var attributionLine: some View {
+        HStack(spacing: 4) {
+            Text("그럼 잘 사용하시오")
+                .lineSpacing(AppTheme.lineSpacing)
+            Link("@hyun2xyz", destination: URL(string: "https://www.instagram.com/hyun2xyz/")!)
+                .foregroundStyle(AppTheme.linkText)
+                .underline()
         }
     }
 }
@@ -155,26 +181,27 @@ private enum HeaderLogoImage {
 }
 
 private enum AppTheme {
-    static let background = Color(nsColor: .windowBackgroundColor)
-    static let cardBackground = Color(nsColor: .controlBackgroundColor)
-    static let controlBackground = Color(nsColor: .quaternaryLabelColor).opacity(0.16)
+    static let green = Color(nsColor: .systemGreen)
+    static let controlBackground = Color(nsColor: .quaternaryLabelColor).opacity(0.22)
     static let iconBackground = Color(nsColor: .quaternaryLabelColor).opacity(0.20)
-    static let selectedBackground = Color(nsColor: .textBackgroundColor)
-    static let activeBackground = Color.accentColor.opacity(0.16)
+    static let activeBackground = green.opacity(0.20)
     static let primaryText = Color(nsColor: .labelColor)
     static let secondaryText = Color(nsColor: .secondaryLabelColor)
     static let tertiaryText = Color(nsColor: .tertiaryLabelColor)
-    static let activeText = Color.accentColor
-    static let linkText = Color(nsColor: .linkColor)
-    static let border = Color(nsColor: .separatorColor).opacity(0.65)
-    static let glassStroke = Color(nsColor: .separatorColor).opacity(0.34)
-    static let glassHighlight = Color.white.opacity(0.42)
+    static let activeText = green
+    static let linkText = green
+    static let glassStroke = Color(nsColor: .separatorColor).opacity(0.38)
+    static let glassHighlight = Color.white.opacity(0.54)
+    static let glassShadow = Color.black.opacity(0.16)
 
     static let titleFont = Font.system(size: 24, weight: .semibold)
     static let sectionFont = Font.system(size: 13, weight: .semibold)
     static let bodyFont = Font.system(size: 13, weight: .regular)
     static let captionFont = Font.system(size: 12, weight: .regular)
     static let badgeFont = Font.system(size: 11, weight: .semibold)
+    static let lineSpacing: CGFloat = 4
+    static let noticeLineGap: CGFloat = 5
+    static let noticeParagraphGap: CGFloat = 3
 }
 
 private struct LiquidModeSwitch: View {
@@ -200,13 +227,13 @@ private struct LiquidModeSwitch: View {
                     }
 
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(.regularMaterial)
+                    .fill(.thinMaterial)
                     .frame(width: knobWidth, height: max(proxy.size.height - inset * 2, 0))
                     .overlay {
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(isOn ? Color.accentColor.opacity(0.42) : AppTheme.glassStroke, lineWidth: 1)
+                            .stroke(isOn ? AppTheme.green.opacity(0.62) : AppTheme.glassStroke, lineWidth: 1)
                     }
-                    .shadow(color: Color.black.opacity(0.14), radius: 14, x: 0, y: 8)
+                    .shadow(color: AppTheme.glassShadow, radius: 18, x: 0, y: 10)
                     .offset(x: isOn ? knobWidth : 0)
                     .padding(inset)
 
@@ -266,40 +293,33 @@ private struct InfoCard<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if title != nil || refreshAction != nil {
-                HStack(alignment: .center, spacing: 8) {
+                HStack(alignment: .center, spacing: 6) {
                     if let title {
                         Text(title)
                             .font(AppTheme.sectionFont)
                     }
 
-                    Spacer()
-
                     if let refreshAction {
                         Button(action: refreshAction) {
                             Image(systemName: "arrow.clockwise")
-                                .font(.system(size: 12, weight: .semibold))
-                                .frame(width: 26, height: 24)
+                                .font(.system(size: 12, weight: .bold))
+                                .frame(width: 18, height: 18)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
-                        .foregroundStyle(isRefreshDisabled ? AppTheme.tertiaryText : AppTheme.linkText)
-                        .background(AppTheme.controlBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .foregroundStyle(isRefreshDisabled ? AppTheme.tertiaryText : AppTheme.green)
                         .disabled(isRefreshDisabled)
                         .help("상태 새로고침")
                     }
+
+                    Spacer()
                 }
             }
             content
         }
-        .padding(14)
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.thinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(AppTheme.glassStroke, lineWidth: 1)
-        }
+        .glassPanel(cornerRadius: 22)
     }
 }
 
@@ -315,7 +335,46 @@ private struct InfoRow: View {
                 .frame(width: 42, alignment: .leading)
             Text(value)
                 .foregroundStyle(AppTheme.primaryText)
+                .lineSpacing(AppTheme.lineSpacing)
                 .fixedSize(horizontal: false, vertical: true)
         }
+    }
+}
+
+private struct GlassBackdrop: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSVisualEffectView {
+        let view = NSVisualEffectView()
+        view.material = .hudWindow
+        view.blendingMode = .behindWindow
+        view.state = .active
+        return view
+    }
+
+    func updateNSView(_ nsView: NSVisualEffectView, context: Context) {}
+}
+
+private struct GlassPanelModifier: ViewModifier {
+    let cornerRadius: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(AppTheme.glassStroke, lineWidth: 1)
+            }
+            .overlay(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(AppTheme.glassHighlight, lineWidth: 1)
+                    .blendMode(.softLight)
+            }
+            .shadow(color: AppTheme.glassShadow, radius: 20, x: 0, y: 12)
+    }
+}
+
+private extension View {
+    func glassPanel(cornerRadius: CGFloat) -> some View {
+        modifier(GlassPanelModifier(cornerRadius: cornerRadius))
     }
 }
