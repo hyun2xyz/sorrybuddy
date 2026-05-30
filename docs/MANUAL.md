@@ -1,6 +1,6 @@
-# SorryBuddy v0.1.2 Manual
+# SorryBuddy v0.1.3 Manual
 
-SorryBuddy v0.1.2 is a personal test build for keeping a MacBook awake while the lid is closed.
+SorryBuddy v0.1.3 is a personal test build for keeping a MacBook awake while the lid is closed.
 
 ## What It Does
 
@@ -48,7 +48,7 @@ The packaged app is created at:
 
 1. Open `.build/release/SorryBuddy.app`.
 2. The SorryBuddy control window should appear.
-3. Click `켜기`.
+3. Toggle the main switch to `켜짐`.
 4. Read the warning and choose `켜기`.
 5. Enter the macOS administrator password when prompted.
 6. Keep the MacBook on a desk and verify it remains reachable while closed.

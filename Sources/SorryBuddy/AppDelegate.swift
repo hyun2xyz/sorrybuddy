@@ -4,6 +4,9 @@ import SwiftUI
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+    private static let bundleIdentifier = Bundle.main.bundleIdentifier ?? "xyz.hyun2.sorrybuddy"
+    private static let reopenNotificationName = Notification.Name("\(bundleIdentifier).reopenControlWindow")
+
     private var controlWindow: NSWindow?
     private var statusItem: NSStatusItem?
     private var statusMenu = NSMenu()
@@ -13,6 +16,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var updateChecker = GitHubUpdateChecker(currentVersion: Self.currentVersion)
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if notifyExistingInstanceIfNeeded() {
+            NSApplication.shared.terminate(nil)
+            return
+        }
+
+        installSingleInstanceObserver()
         setupStatusItem()
         showControlWindow()
         safetyTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
@@ -33,6 +42,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        DistributedNotificationCenter.default().removeObserver(
+            self,
+            name: Self.reopenNotificationName,
+            object: Self.bundleIdentifier
+        )
         safetyTimer?.invalidate()
         lidTimer?.invalidate()
         SharedAppState.state.restoreBeforeQuit()
@@ -128,6 +142,52 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private func updateStatusIcon() {
         statusItem?.button?.image = MenuBarIconFactory.image(isActive: SharedAppState.state.isClosedLidModeActive)
+    }
+
+    private func installSingleInstanceObserver() {
+        DistributedNotificationCenter.default().addObserver(
+            self,
+            selector: #selector(handleReopenNotification),
+            name: Self.reopenNotificationName,
+            object: Self.bundleIdentifier
+        )
+    }
+
+    private func notifyExistingInstanceIfNeeded() -> Bool {
+        let runningApps = NSRunningApplication.runningApplications(withBundleIdentifier: Self.bundleIdentifier)
+        let snapshots = runningApps.map { app in
+            RunningAppSnapshot(
+                bundleIdentifier: app.bundleIdentifier,
+                processIdentifier: app.processIdentifier,
+                isTerminated: app.isTerminated
+            )
+        }
+
+        guard let existingProcessIdentifier = SingleInstanceGuard.existingProcessIdentifier(
+            bundleIdentifier: Self.bundleIdentifier,
+            currentProcessIdentifier: ProcessInfo.processInfo.processIdentifier,
+            runningApplications: snapshots
+        ) else {
+            return false
+        }
+
+        DistributedNotificationCenter.default().postNotificationName(
+            Self.reopenNotificationName,
+            object: Self.bundleIdentifier,
+            userInfo: nil,
+            deliverImmediately: true
+        )
+        runningApps.first { $0.processIdentifier == existingProcessIdentifier }?.activate(
+            options: [.activateAllWindows, .activateIgnoringOtherApps]
+        )
+        return true
+    }
+
+    @objc private func handleReopenNotification(_ notification: Notification) {
+        showControlWindow()
+        SharedAppState.state.refresh()
+        rebuildStatusMenu()
+        updateStatusIcon()
     }
 
     @objc private func enableClosedLidMode() {

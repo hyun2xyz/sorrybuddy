@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.2
+**Version:** 0.1.3
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.2.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.2.dmg)
+[SorryBuddy-0.1.3.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.3.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
@@ -67,7 +67,7 @@ open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 ## Usage
 
 1. Open `SorryBuddy.app`.
-2. Click `켜기` in the control window.
+2. Toggle the control window switch to `켜짐`.
 3. Read the safety warning and choose `켜기`.
 4. Enter the macOS administrator password.
 5. Keep the MacBook on a hard, ventilated desk surface.

@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**버전:** 0.1.2
+**버전:** 0.1.3
 
 [English README](README.md)
 
@@ -16,7 +16,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 최신 DMG 파일을 받으세요.
 
-[SorryBuddy-0.1.2.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.2.dmg)
+[SorryBuddy-0.1.3.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.3.dmg)
 
 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 
@@ -67,8 +67,8 @@ open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
 ## 사용법
 
 1. `SorryBuddy.app`을 엽니다.
-2. 제어 창에서 `켜기`를 누릅니다.
-3. 안전 안내를 읽고 다시 `켜기`를 선택합니다.
+2. 제어 창의 스위치를 `켜짐`으로 전환합니다.
+3. 안전 안내를 읽고 `켜기`를 선택합니다.
 4. macOS 관리자 비밀번호를 입력합니다.
 5. 맥북을 통풍되는 단단한 책상 위에 둡니다.
 6. 뚜껑을 닫고 작업이 계속되는지 확인합니다.
