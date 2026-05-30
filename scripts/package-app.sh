@@ -16,6 +16,7 @@ mkdir -p "$APP/Contents/Resources"
 cp "$BUILD_DIR/SorryBuddy" "$APP/Contents/MacOS/SorryBuddy"
 cp "$ROOT/Packaging/Info.plist" "$APP/Contents/Info.plist"
 cp "$ROOT/Assets/AppIcon/SorryBuddy.icns" "$APP/Contents/Resources/SorryBuddy.icns"
+cp "$ROOT/Assets/MenuBar/SorryBuddyMenuBar.png" "$APP/Contents/Resources/SorryBuddyMenuBar.png"
 chmod +x "$APP/Contents/MacOS/SorryBuddy"
 
 codesign --force --deep --sign - "$APP"

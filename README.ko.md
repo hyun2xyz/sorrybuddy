@@ -12,6 +12,16 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 이 앱은 개인 테스트용 실험 도구입니다. 반드시 통풍이 되는 책상 위에서만 사용하세요.
 
+## 다운로드
+
+최신 DMG 파일을 받으세요.
+
+[SorryBuddy-0.1.0.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.0.dmg)
+
+다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
+
+현재 빌드는 ad-hoc 서명만 되어 있고 Apple 공증은 되어 있지 않습니다. 처음 실행할 때 macOS가 막으면 시스템 설정의 개인정보 보호 및 보안에서 허용하거나, 앱을 우클릭한 뒤 `열기`로 실행하세요.
+
 ## 주요 기능
 
 - 상단 메뉴바의 새싹 아이콘으로 제어.
@@ -125,6 +135,12 @@ swift test
 
 ```bash
 ./scripts/package-app.sh
+```
+
+릴리즈 DMG 빌드:
+
+```bash
+./scripts/package-dmg.sh
 ```
 
 코드는 아래처럼 나뉩니다.

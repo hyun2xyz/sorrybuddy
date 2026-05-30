@@ -2,6 +2,14 @@ import AppKit
 
 enum MenuBarIconFactory {
     static func image(isActive: Bool) -> NSImage {
+        if let url = Bundle.main.url(forResource: "SorryBuddyMenuBar", withExtension: "png"),
+           let image = NSImage(contentsOf: url) {
+            image.size = NSSize(width: 22, height: 22)
+            image.isTemplate = false
+            image.accessibilityDescription = isActive ? "SorryBuddy on" : "SorryBuddy"
+            return image
+        }
+
         let size = NSSize(width: 21, height: 18)
         let image = NSImage(size: size, flipped: false) { rect in
             drawSproutIcon(in: rect, isActive: isActive)

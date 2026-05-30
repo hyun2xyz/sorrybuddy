@@ -12,6 +12,16 @@ SorryBuddy is a small macOS menu bar app for testing closed-lid work mode on a M
 
 This is an experimental personal utility. Use it only when the MacBook is on a desk with ventilation.
 
+## Download
+
+Download the latest DMG:
+
+[SorryBuddy-0.1.0.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.0.dmg)
+
+Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
+
+This build is ad-hoc signed and not notarized. On first launch, macOS may ask you to allow it from Privacy & Security or open it with right-click `Open`.
+
 ## Features
 
 - Menu bar control via a visible sprout icon.
@@ -125,6 +135,12 @@ Build release app:
 
 ```bash
 ./scripts/package-app.sh
+```
+
+Build release DMG:
+
+```bash
+./scripts/package-dmg.sh
 ```
 
 The code is split into:
