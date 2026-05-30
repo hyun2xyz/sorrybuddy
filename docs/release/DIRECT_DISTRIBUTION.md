@@ -69,6 +69,12 @@ export INSTALLER_SIGN_IDENTITY="Developer ID Installer: Your Name (TEAMID)"
 REQUIRE_DEVELOPER_ID=1 ./scripts/verify-distribution.sh
 ```
 
+체크섬 생성:
+
+```bash
+./scripts/checksums.sh
+```
+
 ## 공증 흐름
 
 Apple notarytool 프로필이 준비되어 있으면 DMG와 PKG를 각각 제출한다.
@@ -85,6 +91,12 @@ xcrun stapler staple ~/Desktop/SorryBuddy-0.1.6.pkg
 ```bash
 spctl -a -vv --type open ~/Desktop/SorryBuddy-0.1.6.dmg
 spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.6.pkg
+```
+
+공증 자동화:
+
+```bash
+NOTARY_KEYCHAIN_PROFILE=sorrybuddy-notary ./scripts/notarize-dmg.sh
 ```
 
 ## 업데이트 방식

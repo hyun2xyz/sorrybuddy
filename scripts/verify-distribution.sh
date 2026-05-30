@@ -50,6 +50,13 @@ else
     pass "LSUIElement is absent"
 fi
 
+if git grep -nE '(AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|ghp_[A-Za-z0-9_]{30,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9]{32,}|xox[baprs]-[A-Za-z0-9-]{20,})' -- . ':!docs/release/SECURITY_AUDIT.md' >/tmp/sorrybuddy-secret-scan.txt; then
+    cat /tmp/sorrybuddy-secret-scan.txt >&2
+    fail "possible hardcoded secret detected"
+else
+    pass "no known high-risk secret patterns found"
+fi
+
 swift test >/dev/null && pass "swift test passed"
 
 "$ROOT/scripts/package-app.sh" >/dev/null
@@ -59,6 +66,13 @@ if codesign --verify --strict --verbose=2 "$APP" >/dev/null 2>&1; then
     pass "app code signature verifies"
 else
     fail "app code signature verification failed"
+fi
+
+if find "$APP" \( -name '.DS_Store' -o -name '._*' \) -print -quit | grep -q .; then
+    find "$APP" \( -name '.DS_Store' -o -name '._*' \) -print >&2
+    fail "app bundle contains Finder/AppleDouble metadata"
+else
+    pass "app bundle has no Finder/AppleDouble metadata"
 fi
 
 codesign_info="$(codesign -dv --verbose=4 "$APP" 2>&1 || true)"
@@ -75,6 +89,15 @@ if grep -q 'TeamIdentifier=not set' <<<"$codesign_info"; then
     fi
 else
     pass "app has a TeamIdentifier"
+fi
+
+entitlements="$(codesign -d --entitlements :- "$APP" 2>/dev/null || true)"
+if [[ -z "$entitlements" ]]; then
+    pass "app has no embedded entitlements"
+elif grep -q '<plist' <<<"$entitlements"; then
+    warn "app has embedded entitlements; review before public distribution"
+else
+    pass "app entitlements check returned no plist"
 fi
 
 if [[ -e "$DMG" ]]; then

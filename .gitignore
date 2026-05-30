@@ -10,3 +10,4 @@ DerivedData/
 .netrc
 *.password.txt
 *.sha256
+SHA256SUMS*.txt
