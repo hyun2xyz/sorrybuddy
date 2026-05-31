@@ -106,6 +106,12 @@ if [[ -e "$DMG" ]]; then
     else
         fail "DMG verification failed: $DMG"
     fi
+
+    if "$ROOT/scripts/verify-dmg-layout.sh" "$DMG" >/dev/null; then
+        pass "DMG installer layout verifies"
+    else
+        fail "DMG installer layout verification failed"
+    fi
 else
     warn "DMG not found for verification: $DMG"
 fi
@@ -115,6 +121,23 @@ if [[ -e "$ENCRYPTED_DMG" ]]; then
         pass "encrypted DMG reports encrypted: $ENCRYPTED_DMG"
     else
         fail "encrypted DMG does not report encrypted: $ENCRYPTED_DMG"
+    fi
+
+    encrypted_password=""
+    if [[ -n "${ENCRYPTED_DMG_PASSWORD_FILE:-}" && -f "${ENCRYPTED_DMG_PASSWORD_FILE:-}" ]]; then
+        encrypted_password="$(cat "$ENCRYPTED_DMG_PASSWORD_FILE")"
+    elif [[ -n "${ENCRYPTED_DMG_PASSWORD:-}" ]]; then
+        encrypted_password="$ENCRYPTED_DMG_PASSWORD"
+    fi
+
+    if [[ -n "$encrypted_password" ]]; then
+        if DMG_PASSWORD="$encrypted_password" "$ROOT/scripts/verify-dmg-layout.sh" "$ENCRYPTED_DMG" >/dev/null; then
+            pass "encrypted DMG installer layout verifies"
+        else
+            fail "encrypted DMG installer layout verification failed"
+        fi
+    else
+        warn "encrypted DMG layout verification skipped; password was not provided"
     fi
 else
     warn "encrypted DMG not found for verification: $ENCRYPTED_DMG"

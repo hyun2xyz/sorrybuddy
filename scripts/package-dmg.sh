@@ -6,7 +6,6 @@ export COPY_EXTENDED_ATTRIBUTES_DISABLE=1
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION="$(tr -d '[:space:]' < "$ROOT/VERSION")"
 DIST="$ROOT/dist"
-STAGING="$ROOT/.build/dmg-root"
 DMG="$DIST/SorryBuddy-$VERSION.dmg"
 
 APP_PATH="${APP_PATH_OVERRIDE:-}"
@@ -19,25 +18,9 @@ if [[ ! -d "$APP_PATH" ]]; then
     exit 1
 fi
 
-rm -rf "$STAGING"
-mkdir -p "$STAGING"
 mkdir -p "$DIST"
 
-cp -R "$APP_PATH" "$STAGING/SorryBuddy.app"
-ln -s /Applications "$STAGING/Applications"
-find "$STAGING" -name '._*' -delete
-xattr -cr "$STAGING" 2>/dev/null || true
-
-rm -f "$DMG"
-hdiutil create \
-    -volname "SorryBuddy" \
-    -fs HFS+ \
-    -srcfolder "$STAGING" \
-    -ov \
-    -format UDZO \
-    "$DMG" >/dev/null
-
-hdiutil verify "$DMG" >/dev/null
+APP_PATH="$APP_PATH" DMG_PATH="$DMG" "$ROOT/scripts/build-dmg.sh" >/dev/null
 
 DMG_SIGN_IDENTITY="${DMG_SIGN_IDENTITY:-${CODESIGN_IDENTITY:-}}"
 if [[ -n "$DMG_SIGN_IDENTITY" && "$DMG_SIGN_IDENTITY" != "-" ]]; then

@@ -6,7 +6,6 @@ export COPY_EXTENDED_ATTRIBUTES_DISABLE=1
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION="$(tr -d '[:space:]' < "$ROOT/VERSION")"
 DIST="$ROOT/dist"
-STAGING="$ROOT/.build/encrypted-dmg-root"
 DMG="$DIST/SorryBuddy-$VERSION-encrypted.dmg"
 
 password=""
@@ -39,28 +38,9 @@ if [[ ! -d "$APP_PATH" ]]; then
     exit 1
 fi
 
-rm -rf "$STAGING"
-mkdir -p "$STAGING"
 mkdir -p "$DIST"
 
-ditto --norsrc --noextattr "$APP_PATH" "$STAGING/SorryBuddy.app"
-ln -s /Applications "$STAGING/Applications"
-find "$STAGING" -name '._*' -delete
-xattr -cr "$STAGING" 2>/dev/null || true
-
-rm -f "$DMG"
-printf '%s' "$password" | hdiutil create \
-    -volname "SorryBuddy" \
-    -fs HFS+ \
-    -srcfolder "$STAGING" \
-    -ov \
-    -format UDZO \
-    -encryption AES-256 \
-    -stdinpass \
-    "$DMG" >/dev/null
-
-printf '%s' "$password" | hdiutil verify -stdinpass "$DMG" >/dev/null
-hdiutil isencrypted "$DMG" | grep -qi 'encrypted'
+APP_PATH="$APP_PATH" DMG_PATH="$DMG" DMG_ENCRYPTION_PASSWORD="$password" "$ROOT/scripts/build-dmg.sh" >/dev/null
 
 DMG_SIGN_IDENTITY="${DMG_SIGN_IDENTITY:-${CODESIGN_IDENTITY:-}}"
 if [[ -n "$DMG_SIGN_IDENTITY" && "$DMG_SIGN_IDENTITY" != "-" ]]; then

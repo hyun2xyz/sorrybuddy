@@ -34,6 +34,9 @@ cp -f "$ENCRYPTED_DMG_PATH" "$DESKTOP/$(basename "$ENCRYPTED_DMG_PATH")"
 cp -f "$PKG_PATH" "$DESKTOP/$(basename "$PKG_PATH")"
 cp -f "$CHECKSUMS_PATH" "$DESKTOP/$(basename "$CHECKSUMS_PATH")"
 
+swift "$ROOT/scripts/set-file-icon.swift" "$ROOT/Assets/AppIcon/SorryBuddy.icns" "$DESKTOP/$(basename "$DMG_PATH")" || true
+swift "$ROOT/scripts/set-file-icon.swift" "$ROOT/Assets/AppIcon/SorryBuddy.icns" "$DESKTOP/$(basename "$ENCRYPTED_DMG_PATH")" || true
+
 ENCRYPTED_DMG="$DESKTOP/$(basename "$ENCRYPTED_DMG_PATH")" \
     "$ROOT/scripts/verify-distribution.sh" "$DESKTOP/$(basename "$DMG_PATH")"
 
