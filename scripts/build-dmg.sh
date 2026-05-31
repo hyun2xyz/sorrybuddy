@@ -67,12 +67,6 @@ if [[ -z "$MOUNT_POINT" || ! -d "$MOUNT_POINT" ]]; then
     exit 1
 fi
 
-cp "$ICON" "$MOUNT_POINT/.VolumeIcon.icns"
-swift "$ROOT/scripts/set-file-icon.swift" "$ICON" "$MOUNT_POINT" || true
-SetFile -a C "$MOUNT_POINT"
-SetFile -a V "$MOUNT_POINT/.VolumeIcon.icns"
-SetFile -a V "$MOUNT_POINT/.background"
-
 osascript <<APPLESCRIPT
 set backgroundImage to POSIX file "$MOUNT_POINT/.background/background.png" as alias
 tell application "Finder"
@@ -95,6 +89,11 @@ tell application "Finder"
     end tell
 end tell
 APPLESCRIPT
+
+cp "$ICON" "$MOUNT_POINT/.VolumeIcon.icns"
+SetFile -a C "$MOUNT_POINT"
+SetFile -a V "$MOUNT_POINT/.VolumeIcon.icns"
+SetFile -a V "$MOUNT_POINT/.background"
 
 sync
 hdiutil detach "$MOUNT_POINT" -quiet

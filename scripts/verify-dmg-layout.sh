@@ -68,6 +68,18 @@ else
     fail "DMG file custom Finder icon is missing"
 fi
 
+if [[ -f "$MOUNT_POINT/.VolumeIcon.icns" ]]; then
+    pass "volume icon file is embedded"
+else
+    fail "volume icon file is missing"
+fi
+
+if GetFileInfo -a "$MOUNT_POINT" | grep -q 'C'; then
+    pass "volume has custom icon attribute"
+else
+    fail "volume custom icon attribute is missing"
+fi
+
 if [[ -f "$MOUNT_POINT/.DS_Store" ]]; then
     pass "Finder layout metadata is embedded"
 else
