@@ -75,14 +75,14 @@ tell application "Finder"
         set current view of container window to icon view
         set toolbar visible of container window to false
         set statusbar visible of container window to false
-        set bounds of container window to {120, 120, 800, 480}
+        set bounds of container window to {120, 120, 800, 510}
         set viewOptions to the icon view options of container window
         set arrangement of viewOptions to not arranged
         set icon size of viewOptions to 112
         set text size of viewOptions to 14
         set background picture of viewOptions to backgroundImage
-        set position of item "SorryBuddy.app" of container window to {155, 190}
-        set position of item "Applications" of container window to {525, 190}
+        set position of item "SorryBuddy.app" of container window to {155, 158}
+        set position of item "Applications" of container window to {525, 158}
         update without registering applications
         delay 0.4
         close
