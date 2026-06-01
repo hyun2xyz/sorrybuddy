@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**버전:** 0.1.6
+**버전:** 0.1.7
 
 [English README](README.md)
 
@@ -16,7 +16,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 최신 DMG 파일을 받으세요.
 
-[SorryBuddy-0.1.6.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.6.dmg)
+[SorryBuddy-0.1.7.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.7.dmg)
 
 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 

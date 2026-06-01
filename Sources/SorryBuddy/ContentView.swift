@@ -34,7 +34,7 @@ struct ContentView: View {
     }
 
     private var titleBar: some View {
-        Text("Hello Buddy")
+        Text("Sorry Buddy")
             .font(AppTheme.titleFont)
             .foregroundStyle(AppTheme.secondaryText)
             .frame(maxWidth: .infinity)

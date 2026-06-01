@@ -44,8 +44,8 @@ ENCRYPTED_DMG_PASSWORD_FILE=~/Desktop/SorryBuddy.password.txt ./scripts/package-
 검증:
 
 ```bash
-hdiutil isencrypted dist/SorryBuddy-0.1.6-encrypted.dmg
-ENCRYPTED_DMG=dist/SorryBuddy-0.1.6-encrypted.dmg ./scripts/verify-distribution.sh
+hdiutil isencrypted dist/SorryBuddy-0.1.7-encrypted.dmg
+ENCRYPTED_DMG=dist/SorryBuddy-0.1.7-encrypted.dmg ./scripts/verify-distribution.sh
 ```
 
 ## Developer ID 배포 준비
@@ -89,17 +89,17 @@ REQUIRE_DEVELOPER_ID=1 ./scripts/verify-distribution.sh
 Apple notarytool 프로필이 준비되어 있으면 DMG와 PKG를 각각 제출한다.
 
 ```bash
-xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.6.dmg --keychain-profile sorrybuddy-notary --wait
-xcrun stapler staple ~/Desktop/SorryBuddy-0.1.6.dmg
-xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.6.pkg --keychain-profile sorrybuddy-notary --wait
-xcrun stapler staple ~/Desktop/SorryBuddy-0.1.6.pkg
+xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.7.dmg --keychain-profile sorrybuddy-notary --wait
+xcrun stapler staple ~/Desktop/SorryBuddy-0.1.7.dmg
+xcrun notarytool submit ~/Desktop/SorryBuddy-0.1.7.pkg --keychain-profile sorrybuddy-notary --wait
+xcrun stapler staple ~/Desktop/SorryBuddy-0.1.7.pkg
 ```
 
 검증:
 
 ```bash
-spctl -a -vv --type open ~/Desktop/SorryBuddy-0.1.6.dmg
-spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.6.pkg
+spctl -a -vv --type open ~/Desktop/SorryBuddy-0.1.7.dmg
+spctl -a -vv --type install ~/Desktop/SorryBuddy-0.1.7.pkg
 ```
 
 공증 자동화:
