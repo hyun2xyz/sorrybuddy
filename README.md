@@ -48,20 +48,21 @@ The README artwork shows the little SorryBuddy friend smiling from inside a lapt
 ## Build
 
 ```bash
-cd /Users/han/Documents/sorrybuddy
+git clone https://github.com/hyun2xyz/sorrybuddy.git
+cd sorrybuddy
 ./scripts/package-app.sh
 ```
 
 The app bundle is created at:
 
 ```text
-/Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+.build/release/SorryBuddy.app
 ```
 
 ## Run
 
 ```bash
-open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+open .build/release/SorryBuddy.app
 ```
 
 ## Usage

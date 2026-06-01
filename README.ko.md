@@ -48,20 +48,21 @@ README 상단에는 맥북 화면 안에 남아 웃고 있는 작은 친구 스�
 ## 빌드
 
 ```bash
-cd /Users/han/Documents/sorrybuddy
+git clone https://github.com/hyun2xyz/sorrybuddy.git
+cd sorrybuddy
 ./scripts/package-app.sh
 ```
 
 앱 번들은 아래 위치에 생성됩니다.
 
 ```text
-/Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+.build/release/SorryBuddy.app
 ```
 
 ## 실행
 
 ```bash
-open /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+open .build/release/SorryBuddy.app
 ```
 
 ## 사용법

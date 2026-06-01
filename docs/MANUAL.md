@@ -34,14 +34,15 @@ This test build changes a power-management setting at the user's request. Hardwa
 ## Build
 
 ```bash
-cd /Users/han/Documents/sorrybuddy
+git clone https://github.com/hyun2xyz/sorrybuddy.git
+cd sorrybuddy
 ./scripts/package-app.sh
 ```
 
 The packaged app is created at:
 
 ```text
-/Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+.build/release/SorryBuddy.app
 ```
 
 ## First Test
@@ -56,7 +57,7 @@ The packaged app is created at:
 If no window appears, click the sprout menu bar icon and choose `제어 창 열기`, or run:
 
 ```bash
-open -n /Users/han/Documents/sorrybuddy/.build/release/SorryBuddy.app
+open -n .build/release/SorryBuddy.app
 ```
 
 If the window was closed with the red X button, click the sprout menu bar icon and choose `제어 창 열기`.
