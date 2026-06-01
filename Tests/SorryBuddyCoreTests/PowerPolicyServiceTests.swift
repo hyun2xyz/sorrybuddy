@@ -14,6 +14,13 @@ final class SpyShellClient: ShellRunning {
 struct PowerPolicyServiceTests {
     @Test func enableClosedLidModeRunsAdministratorPmsetCommand() throws {
         let shell = SpyShellClient()
+        shell.outputs = [
+            "",
+            """
+            Currently in use:
+             SleepDisabled        1
+            """
+        ]
         let service = PowerPolicyService(shell: shell)
 
         try service.enableClosedLidMode()
@@ -25,8 +32,28 @@ struct PowerPolicyServiceTests {
                     "-e",
                     "do shell script \"/usr/bin/pmset -a disablesleep 1\" with administrator privileges"
                 ]
+            ),
+            ShellCommand(
+                executable: "/usr/bin/pmset",
+                arguments: ["-g"]
             )
         ])
+    }
+
+    @Test func enableClosedLidModeFailsWhenPmsetDidNotApply() throws {
+        let shell = SpyShellClient()
+        shell.outputs = [
+            "",
+            """
+            Currently in use:
+             SleepDisabled        0
+            """
+        ]
+        let service = PowerPolicyService(shell: shell)
+
+        #expect(throws: SorryBuddyError.closedLidModeNotApplied) {
+            try service.enableClosedLidMode()
+        }
     }
 
     @Test func disableClosedLidModeRunsAdministratorPmsetCommand() throws {

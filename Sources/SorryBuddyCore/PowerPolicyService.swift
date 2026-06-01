@@ -9,6 +9,9 @@ public final class PowerPolicyService {
 
     public func enableClosedLidMode() throws {
         try runAdministratorPMSet(command: "/usr/bin/pmset -a disablesleep 1")
+        guard try currentPowerSettings().closedLidSleepDisabled else {
+            throw SorryBuddyError.closedLidModeNotApplied
+        }
     }
 
     public func disableClosedLidMode() throws {
