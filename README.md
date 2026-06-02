@@ -18,7 +18,7 @@ Download the latest DMG:
 
 [SorryBuddy-0.1.8.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.8.dmg)
 
-Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
+This is a passwordless standard DMG. Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
 This build is ad-hoc signed and not notarized. On first launch, macOS may ask you to allow it from Privacy & Security or open it with right-click `Open`.
 
@@ -145,7 +145,9 @@ SorryBuddy intentionally changes a power-management setting at the user's reques
 
 ## Distribution Security
 
-An encrypted DMG prevents mounting the disk image without the password. After a user unlocks the DMG and runs the app, the app bundle can still be inspected because that is how macOS app bundles work. Public distribution security should rely on Developer ID signing, Apple notarization, stapling, and checksum verification rather than obscuring the bundle.
+The public release uses a passwordless standard DMG, so users do not need a separate DMG password to open the installer.
+
+macOS app bundles can still be inspected because that is how macOS app bundles work. Public distribution security should rely on Developer ID signing, Apple notarization, stapling, and checksum verification rather than obscuring the bundle.
 
 ## Development
 
@@ -165,12 +167,6 @@ Build release DMG:
 
 ```bash
 ./scripts/package-dmg.sh
-```
-
-Build encrypted DMG:
-
-```bash
-ENCRYPTED_DMG_PASSWORD_FILE="$HOME/Desktop/SorryBuddy.password.txt" ./scripts/package-encrypted-dmg.sh
 ```
 
 Verify distribution artifacts:

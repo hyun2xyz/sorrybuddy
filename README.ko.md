@@ -18,7 +18,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 [SorryBuddy-0.1.8.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.8.dmg)
 
-다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
+이 파일은 비밀번호가 없는 일반 DMG입니다. 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 
 현재 빌드는 ad-hoc 서명만 되어 있고 Apple 공증은 되어 있지 않습니다. 처음 실행할 때 macOS가 막으면 시스템 설정의 개인정보 보호 및 보안에서 허용하거나, 앱을 우클릭한 뒤 `열기`로 실행하세요.
 
@@ -145,7 +145,9 @@ SorryBuddy는 사용자의 요청에 따라 macOS 전원 관리 설정을 변경
 
 ## 배포 보안
 
-암호화 DMG는 비밀번호를 모르면 마운트할 수 없게 만들 수 있습니다. 다만 사용자가 비밀번호로 DMG를 열고 앱을 실행한 뒤에는 앱 번들 내부를 볼 수 있으므로, "절대 뜯을 수 없는 앱"은 macOS 앱 구조상 만들 수 없습니다. 공개 배포에서 중요한 보안 기준은 Developer ID 서명, Apple 공증, stapling, 체크섬 검증입니다.
+현재 공개 릴리즈는 비밀번호가 없는 일반 DMG로 배포합니다. 사용자가 앱을 열 때 별도 DMG 비밀번호를 입력하지 않아도 됩니다.
+
+macOS 앱 번들은 사용자가 열어볼 수 있는 구조라서 "절대 뜯을 수 없는 앱"은 현실적으로 만들 수 없습니다. 공개 배포에서 중요한 보안 기준은 Developer ID 서명, Apple 공증, stapling, 체크섬 검증입니다.
 
 ## 개발
 
@@ -165,12 +167,6 @@ swift test
 
 ```bash
 ./scripts/package-dmg.sh
-```
-
-암호화 DMG 빌드:
-
-```bash
-ENCRYPTED_DMG_PASSWORD_FILE="$HOME/Desktop/SorryBuddy.password.txt" ./scripts/package-encrypted-dmg.sh
 ```
 
 배포 검증:

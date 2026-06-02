@@ -6,6 +6,7 @@ VERSION="$(tr -d '[:space:]' < "$ROOT/VERSION")"
 APP="$ROOT/.build/release/SorryBuddy.app"
 DMG="${1:-$ROOT/dist/SorryBuddy-$VERSION.dmg}"
 ENCRYPTED_DMG="${ENCRYPTED_DMG:-$ROOT/dist/SorryBuddy-$VERSION-encrypted.dmg}"
+VERIFY_ENCRYPTED_DMG="${VERIFY_ENCRYPTED_DMG:-0}"
 REQUIRE_DEVELOPER_ID="${REQUIRE_DEVELOPER_ID:-0}"
 
 failures=0
@@ -116,8 +117,10 @@ else
     warn "DMG not found for verification: $DMG"
 fi
 
-if [[ -e "$ENCRYPTED_DMG" ]]; then
-    if hdiutil isencrypted "$ENCRYPTED_DMG" | grep -qi 'encrypted'; then
+if [[ "$VERIFY_ENCRYPTED_DMG" == "1" ]]; then
+    if [[ ! -e "$ENCRYPTED_DMG" ]]; then
+        fail "encrypted DMG not found for verification: $ENCRYPTED_DMG"
+    elif hdiutil isencrypted "$ENCRYPTED_DMG" | grep -qi 'encrypted'; then
         pass "encrypted DMG reports encrypted: $ENCRYPTED_DMG"
     else
         fail "encrypted DMG does not report encrypted: $ENCRYPTED_DMG"
@@ -130,17 +133,17 @@ if [[ -e "$ENCRYPTED_DMG" ]]; then
         encrypted_password="$ENCRYPTED_DMG_PASSWORD"
     fi
 
-    if [[ -n "$encrypted_password" ]]; then
+    if [[ -n "$encrypted_password" && -e "$ENCRYPTED_DMG" ]]; then
         if DMG_PASSWORD="$encrypted_password" "$ROOT/scripts/verify-dmg-layout.sh" "$ENCRYPTED_DMG" >/dev/null; then
             pass "encrypted DMG installer layout verifies"
         else
             fail "encrypted DMG installer layout verification failed"
         fi
-    else
+    elif [[ -e "$ENCRYPTED_DMG" ]]; then
         warn "encrypted DMG layout verification skipped; password was not provided"
     fi
-else
-    warn "encrypted DMG not found for verification: $ENCRYPTED_DMG"
+elif [[ -e "$ENCRYPTED_DMG" ]]; then
+    warn "encrypted DMG exists but was not verified; set VERIFY_ENCRYPTED_DMG=1 to verify it"
 fi
 
 if spctl -a -vv --type exec "$APP" >/dev/null 2>&1; then

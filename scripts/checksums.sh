@@ -11,9 +11,12 @@ rm -f "$OUT"
 
 artifacts=(
     "SorryBuddy-$VERSION.dmg"
-    "SorryBuddy-$VERSION-encrypted.dmg"
     "SorryBuddy-$VERSION.pkg"
 )
+
+if [[ "${INCLUDE_ENCRYPTED_DMG:-0}" == "1" ]]; then
+    artifacts+=("SorryBuddy-$VERSION-encrypted.dmg")
+fi
 
 for artifact in "${artifacts[@]}"; do
     if [[ -e "$DIST/$artifact" ]]; then
