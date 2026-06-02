@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**Version:** 0.1.7
+**Version:** 0.1.8
 
 [한국어 README](README.ko.md)
 
@@ -16,7 +16,7 @@ This is an experimental personal utility. Use it only when the MacBook is on a d
 
 Download the latest DMG:
 
-[SorryBuddy-0.1.7.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.7.dmg)
+[SorryBuddy-0.1.8.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.8.dmg)
 
 Open the downloaded DMG, then drag `SorryBuddy.app` into `Applications`.
 
@@ -26,6 +26,7 @@ This build is ad-hoc signed and not notarized. On first launch, macOS may ask yo
 
 - Menu bar control via a visible sprout icon.
 - Closed-lid sleep prevention through `pmset -a disablesleep`.
+- Keeps `PreventUserIdleSystemSleep` and `NetworkClientActive` power assertions while work mode is active.
 - Administrator approval before changing the power setting.
 - Control window that can be closed while the app keeps running in the menu bar.
 - Built-in display brightness goes to 0 when the lid is closed.
@@ -106,6 +107,17 @@ Expected after disabling:
 ```text
 SleepDisabled        0
 ```
+
+## If CLI Work Still Disconnects
+
+If `SleepDisabled        1` is active but a Codex, Claude, Gemini, or other streaming CLI session disconnects, the Mac may still be awake while the network stream has dropped. Weak Wi-Fi, Low Data Mode, constrained networks, VPN/network filter apps, and NAT64/CLAT networks can interrupt DNS or WebSocket connections when the lid closes.
+
+Try these first:
+
+- Connect the power adapter.
+- Move closer to the router or use USB-C Ethernet.
+- Avoid iPhone hotspot, Low Data Mode, VPN, and network filter apps during long closed-lid runs.
+- Enable commit/checkpoint rules before running long AI-agent tasks.
 
 ## Emergency Recovery
 

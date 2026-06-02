@@ -1,6 +1,6 @@
 # SorryBuddy
 
-**버전:** 0.1.7
+**버전:** 0.1.8
 
 [English README](README.md)
 
@@ -16,7 +16,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 최신 DMG 파일을 받으세요.
 
-[SorryBuddy-0.1.7.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.7.dmg)
+[SorryBuddy-0.1.8.dmg](https://github.com/hyun2xyz/sorrybuddy/releases/latest/download/SorryBuddy-0.1.8.dmg)
 
 다운로드한 DMG를 열고 `SorryBuddy.app`을 `Applications`로 드래그하면 설치됩니다.
 
@@ -26,6 +26,7 @@ SorryBuddy는 맥북 뚜껑을 닫아도 작업이 계속되도록 테스트하�
 
 - 상단 메뉴바의 새싹 아이콘으로 제어.
 - `pmset -a disablesleep` 기반의 닫힌 상태 잠자기 방지.
+- 작업 모드 중 `PreventUserIdleSystemSleep`과 `NetworkClientActive` 전원 assertion 유지.
 - 전원 설정 변경 전 관리자 승인 요청.
 - 제어 창을 닫아도 앱은 메뉴바에 계속 유지.
 - 뚜껑이 닫히면 내장 디스플레이 밝기를 0으로 변경.
@@ -106,6 +107,17 @@ SleepDisabled        1
 ```text
 SleepDisabled        0
 ```
+
+## 닫았을 때 CLI 작업이 끊길 때
+
+`SleepDisabled        1`인데도 Codex, Claude, Gemini 같은 CLI/웹 스트리밍 작업이 끊기면 맥이 잠든 문제가 아니라 네트워크 스트림이 끊긴 경우가 많습니다. 특히 Wi-Fi 신호가 약하거나, 저데이터 모드/제한 네트워크이거나, NAT64/CLAT 경로를 쓰는 네트워크에서는 뚜껑을 닫는 순간 DNS 또는 WebSocket 연결이 끊길 수 있습니다.
+
+이 경우에는 아래를 먼저 시도하세요.
+
+- 전원 어댑터를 연결합니다.
+- 공유기 가까이에서 안정적인 Wi-Fi를 쓰거나 USB-C 이더넷을 사용합니다.
+- iPhone 핫스팟, 저데이터 모드, VPN, 메뉴바 네트워크 필터 앱을 잠시 끕니다.
+- 긴 AI 작업은 커밋/체크포인트 규칙을 먼저 켜고 실행합니다.
 
 ## 긴급 복구
 

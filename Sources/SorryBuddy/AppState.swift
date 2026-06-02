@@ -10,15 +10,18 @@ final class AppState: ObservableObject {
 
     private let service: PowerPolicyService
     private let lidBrightnessCoordinator: LidBrightnessCoordinator
+    private let workModeAssertions: WorkModeAssertionControlling
     private var enabledByThisRun = false
     private var warnedAtTwelvePercent = false
 
     init(
         service: PowerPolicyService = PowerPolicyService(),
-        lidBrightnessCoordinator: LidBrightnessCoordinator = LidBrightnessCoordinator()
+        lidBrightnessCoordinator: LidBrightnessCoordinator = LidBrightnessCoordinator(),
+        workModeAssertions: WorkModeAssertionControlling = WorkModeAssertionController()
     ) {
         self.service = service
         self.lidBrightnessCoordinator = lidBrightnessCoordinator
+        self.workModeAssertions = workModeAssertions
     }
 
     func refresh() {
@@ -27,6 +30,7 @@ final class AppState: ObservableObject {
             let battery = try service.currentBatteryStatus()
             isClosedLidModeActive = settings.closedLidSleepDisabled
             batteryStatus = battery
+            syncWorkModeAssertions(isActive: settings.closedLidSleepDisabled)
             lastMessage = statusMessage(for: battery)
         } catch {
             lastMessage = "상태 확인 실패: \(error.localizedDescription)"
@@ -36,13 +40,20 @@ final class AppState: ObservableObject {
     func enableClosedLidMode() {
         perform("닫힌 상태 작업 모드를 켰습니다.") {
             try service.enableClosedLidMode()
-            enabledByThisRun = true
+            do {
+                try workModeAssertions.activate()
+                enabledByThisRun = true
+            } catch {
+                try? service.disableClosedLidMode()
+                throw error
+            }
         }
     }
 
     func disableClosedLidMode() {
         perform("닫힌 상태 작업 모드를 껐습니다.") {
             try service.disableClosedLidMode()
+            workModeAssertions.deactivate()
             try lidBrightnessCoordinator.tick(isClosedLidModeActive: false)
             enabledByThisRun = false
             warnedAtTwelvePercent = false
@@ -75,12 +86,15 @@ final class AppState: ObservableObject {
         case .disableNow:
             perform("배터리 10% 이하라 닫힌 상태 작업 모드를 자동으로 종료했습니다.") {
                 try service.disableClosedLidMode()
+                workModeAssertions.deactivate()
                 enabledByThisRun = false
             }
         }
     }
 
     func restoreBeforeQuit() {
+        workModeAssertions.deactivate()
+
         guard enabledByThisRun else {
             return
         }
@@ -90,6 +104,14 @@ final class AppState: ObservableObject {
             try lidBrightnessCoordinator.tick(isClosedLidModeActive: false)
         } catch {
             lastMessage = "종료 전 복구 실패: \(error.localizedDescription)"
+        }
+    }
+
+    private func syncWorkModeAssertions(isActive: Bool) {
+        if isActive {
+            try? workModeAssertions.activate()
+        } else {
+            workModeAssertions.deactivate()
         }
     }
 

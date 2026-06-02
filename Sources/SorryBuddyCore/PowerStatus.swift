@@ -30,6 +30,7 @@ public enum SorryBuddyError: Error, Equatable {
     case missingPowerSetting(String)
     case missingBatteryPercentage
     case closedLidModeNotApplied
+    case powerAssertionFailed(String, Int32)
 }
 
 extension SorryBuddyError: LocalizedError {
@@ -41,6 +42,8 @@ extension SorryBuddyError: LocalizedError {
             return "배터리 잔량을 읽지 못했습니다."
         case .closedLidModeNotApplied:
             return "macOS 전원 설정에 닫힌 상태 작업 모드가 적용되지 않았습니다."
+        case .powerAssertionFailed(let assertionType, let code):
+            return "\(assertionType) 전원 보강 설정에 실패했습니다. 코드: \(code)"
         }
     }
 }

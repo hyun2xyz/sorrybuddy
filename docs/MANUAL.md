@@ -1,6 +1,6 @@
-# SorryBuddy v0.1.7 Manual
+# SorryBuddy v0.1.8 Manual
 
-SorryBuddy v0.1.7 is a personal test build for keeping a MacBook awake while the lid is closed.
+SorryBuddy v0.1.8 is a personal test build for keeping a MacBook awake while the lid is closed.
 
 ## What It Does
 
@@ -8,6 +8,7 @@ SorryBuddy v0.1.7 is a personal test build for keeping a MacBook awake while the
 - Keeps running as a visible sprout icon in the menu bar if the control window is closed.
 - Uses a minimal eyes-and-sprout icon derived from the first hand-drawn sketch.
 - Turns closed-lid sleep prevention on with administrator approval.
+- Holds `PreventUserIdleSystemSleep` and `NetworkClientActive` assertions while closed-lid work mode is active.
 - Turns it off from the same menu.
 - Watches lid state every 2 seconds and sets the built-in display brightness to 0 when the lid is closed.
 - Restores the previous brightness when the lid opens or the mode is turned off.
@@ -87,6 +88,12 @@ SleepDisabled        0
 ```
 
 Some macOS versions hide `SleepDisabled` when it is off. In that case, absence usually means the mode is not active.
+
+## If CLI Work Still Disconnects
+
+SorryBuddy can keep the Mac awake, but it cannot guarantee that every remote streaming connection survives a lid-close network transition. If `SleepDisabled        1` is active and a CLI AI tool still shows a DNS, WebSocket, or stream-disconnected error, check the network first.
+
+The most common causes are weak Wi-Fi, Low Data Mode, constrained networks, VPN/network filter apps, iPhone hotspot behavior, or NAT64/CLAT routing. Use power, stable Wi-Fi or Ethernet, and checkpoint/commit rules for long agent runs.
 
 ## Emergency Recovery
 
